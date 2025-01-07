@@ -1,0 +1,26 @@
+# Node.js (Frontend)
+node_modules/
+dist/
+build/
+*.log
+
+# .NET (Backend)
+bin/
+obj/
+*.user
+*.suo
+*.csproj.user
+*.db
+
+# IDEs e Ferramentas
+.vscode/
+.idea/
+*.swp
+*.iml
+
+# Sistemas Operacionais
+.DS_Store
+Thumbs.db
+
+# Arquivos de Ambiente
+.env
