@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using TerapiaVirtual.Backend.DTOs;
 using TerapiaVirtual.Backend.Services;
+using TerapiaVirtual.Backend.Utils;
 
 [ApiController]
-[Route("api[controller]")]
+[Route("api/[controller]")]
 public class UsuarioController : ControllerBase
 {
     private readonly CadastrarUsuarioService _cadastrarUsuarioService;
@@ -16,6 +17,14 @@ public class UsuarioController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] UsuarioDto usuarioDto)
     {
+        if (string.IsNullOrWhiteSpace(usuarioDto.Senha))
+        {
+            return BadRequest("A senha não pode estar vazia.");
+        }
+        
+        var senhaHashed = PasswordHasher.HashPassword(usuarioDto.Senha);
+        usuarioDto.Senha = senhaHashed;
+
         var resultado = await _cadastrarUsuarioService.CadastrarUsuario(usuarioDto);
 
         if (resultado.Sucesso)
